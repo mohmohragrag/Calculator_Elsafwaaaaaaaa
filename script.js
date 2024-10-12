@@ -82,20 +82,19 @@ function calculateWeight() {
             case "Hollow Structural Sections - Square":
                     const [lengthSquare, sideLengthSquare, thicknessSquare] = values;
                     // حساب الوزن للقسم المربع
-                    weight = (lengthSquare / 1000) * 
-                             ((sideLengthSquare / 1000) * (sideLengthSquare / 1000) - 
-                              ((sideLengthSquare - 2 * thicknessSquare) / 1000) * 
-                              ((sideLengthSquare - 2 * thicknessSquare) / 1000)) * density;
+                    const outerAreaSquare = Math.pow(sideLengthSquare / 1000, 2); // المساحة الخارجية
+                    const innerAreaSquare = Math.pow((sideLengthSquare - 2 * thicknessSquare) / 1000, 2); // المساحة الداخلية
+                    weight = (lengthSquare / 1000) * (outerAreaSquare - innerAreaSquare) * density;
                     break;
                 
             case "Hollow Structural Sections - Rectangular":
                     const [lengthRect, widthRect, heightRect, thicknessRect] = values;
                     // حساب الوزن للقسم المستطيل
-                    weight = (lengthRect / 1000) * 
-                             ((widthRect / 1000) * (heightRect / 1000) - 
-                              ((widthRect - 2 * thicknessRect) / 1000) * 
-                              ((heightRect - 2 * thicknessRect) / 1000)) * density;
+                    const outerAreaRect = (widthRect / 1000) * (heightRect / 1000); // المساحة الخارجية
+                    const innerAreaRect = ((widthRect - 2 * thicknessRect) / 1000) * ((heightRect - 2 * thicknessRect) / 1000); // المساحة الداخلية
+                    weight = (lengthRect / 1000) * (outerAreaRect - innerAreaRect) * density;
                     break;
+                
                 
 
             case "Round Steel Bars":
