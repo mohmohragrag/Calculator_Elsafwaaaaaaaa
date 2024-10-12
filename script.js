@@ -76,26 +76,22 @@ function calculateWeight() {
 
             case "Seamless Steel Pipes - Circular":
                 const [lengthPipe, outerDiameter, thicknessPipe] = values;
-                weight = ((outerDiameter - thicknessPipe) * thicknessPipe * (lengthPipe+20) * 0.025) / 1000;
+                weight = ((outerDiameter - thicknessPipe) * thicknessPipe * (lengthPipe + 20) * 0.025) / 1000;
                 break;
 
             case "Hollow Structural Sections - Square":
-                    const [lengthSquare, sideLengthSquare, thicknessSquare] = values;
-                    // حساب الوزن للقسم المربع
-                    const outerAreaSquare = Math.pow(sideLengthSquare / 1000, 2); // المساحة الخارجية
-                    const innerAreaSquare = Math.pow((sideLengthSquare - 2 * thicknessSquare) / 1000, 2); // المساحة الداخلية
-                    weight = (lengthSquare / 1000) * (outerAreaSquare - innerAreaSquare) * density;
-                    break;
-                
+                const [lengthSquare, sideLengthSquare, thicknessSquare] = values;
+                const outerAreaSquare = Math.pow(sideLengthSquare / 1000, 2); // المساحة الخارجية
+                const innerAreaSquare = Math.pow((sideLengthSquare - 2 * thicknessSquare) / 1000, 2); // المساحة الداخلية
+                weight = (lengthSquare / 1000) * (outerAreaSquare - innerAreaSquare) * density;
+                break;
+
             case "Hollow Structural Sections - Rectangular":
-                    const [lengthRect, widthRect, heightRect, thicknessRect] = values;
-                    // حساب الوزن للقسم المستطيل
-                    const outerAreaRect = (widthRect / 1000) * (heightRect / 1000); // المساحة الخارجية
-                    const innerAreaRect = ((widthRect - 2 * thicknessRect) / 1000) * ((heightRect - 2 * thicknessRect) / 1000); // المساحة الداخلية
-                    weight = (lengthRect / 1000) * (outerAreaRect - innerAreaRect) * density;
-                    break;
-                
-                
+                const [lengthRect, widthRect, heightRect, thicknessRect] = values;
+                const outerAreaRect = (widthRect / 1000) * (heightRect / 1000); // المساحة الخارجية
+                const innerAreaRect = ((widthRect - 2 * thicknessRect) / 1000) * ((heightRect - 2 * thicknessRect) / 1000); // المساحة الداخلية
+                weight = (lengthRect / 1000) * (outerAreaRect - innerAreaRect) * density;
+                break;
 
             case "Round Steel Bars":
                 const [lengthRound, diameterRound] = values;
@@ -113,38 +109,37 @@ function calculateWeight() {
                 break;
 
             case "Equal Angles":
-                    const [lengthEqual, legLengthEqual, thicknessEqual] = values;
-                    weight = (lengthEqual / 1000) * ((legLengthEqual / 1000) * (legLengthEqual / 1000) - ((legLengthEqual - thicknessEqual) / 1000) * ((legLengthEqual - thicknessEqual) / 1000)) * density;
-                    break;
-    
+                const [lengthEqual, legLengthEqual, thicknessEqual] = values;
+                weight = (lengthEqual / 1000) * ((legLengthEqual / 1000) * (legLengthEqual / 1000) - ((legLengthEqual - thicknessEqual) / 1000) * ((legLengthEqual - thicknessEqual) / 1000)) * density;
+                break;
+
             case "Unequal Angles":
-                    const [lengthUnequal, legLength1Unequal, legLength2Unequal, thicknessUnequal] = values;
-                    weight = (lengthUnequal / 1000) * (((legLength1Unequal / 1000) * (legLength2Unequal / 1000)) - (((legLength1Unequal - thicknessUnequal) / 1000) * ((legLength2Unequal - thicknessUnequal) / 1000))) * density;
-                    break;
-    
+                const [lengthUnequal, legLength1Unequal, legLength2Unequal, thicknessUnequal] = values;
+                weight = (lengthUnequal / 1000) * (((legLength1Unequal / 1000) * (legLength2Unequal / 1000)) - (((legLength1Unequal - thicknessUnequal) / 1000) * ((legLength2Unequal - thicknessUnequal) / 1000))) * density;
+                break;
+
             case "T-profile":
-                    const [lengthT, widthT, heightT, thicknessT] = values;
-                    weight = (lengthT / 1000) * ((widthT / 1000) * (heightT / 1000) - ((widthT - 2 * thicknessT) / 1000) * ((heightT - thicknessT) / 1000)) * density;
-                    break;
-    
+                const [lengthT, widthT, heightT, thicknessT] = values;
+                weight = (lengthT / 1000) * ((widthT / 1000) * (heightT / 1000) - ((widthT - 2 * thicknessT) / 1000) * ((heightT - thicknessT) / 1000)) * density;
+                break;
+
             case "Hexagonal Sections":
-                    const [lengthHex, flatToFlat] = values;
-                    const hexArea = (3 * Math.sqrt(3) / 2) * Math.pow((flatToFlat / 1000), 2);
-                    weight = lengthHex * hexArea * density / 1000; // Convert to kg
-                    break;
-    
+                const [lengthHex, flatToFlat] = values;
+                const hexArea = (3 * Math.sqrt(3) / 2) * Math.pow((flatToFlat / 1000), 2);
+                weight = lengthHex * hexArea * density / 1000; // Convert to kg
+                break;
+
             default:
-                    document.getElementById("result").innerHTML = "Invalid section type.";
-                    return;
-            }
-    
-            // Multiply by quantity
-            weight *= quantity;
-    
-            // Display the result
-            document.getElementById("result").innerHTML = `Total Weight: ${weight.toFixed(3)} kg`;
-        } else {
-            document.getElementById("result").innerHTML = "Please select a section type and enter valid dimensions.";
+                document.getElementById("result").innerHTML = "Invalid section type.";
+                return;
         }
+
+        // Multiply by quantity
+        weight *= quantity;
+
+        // Display the result
+        document.getElementById("result").innerHTML = `Total Weight: ${weight.toFixed(3)} kg`;
+    } else {
+        document.getElementById("result").innerHTML = "Please select a section type and enter valid dimensions.";
     }
-    
+}
